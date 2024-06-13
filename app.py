@@ -26,15 +26,15 @@ if "chirurgie_specifique" not in st.session_state:
 if st.session_state.page == "Accueil":
     st.title("Antibioprophylaxie en chirurgie et médecine interventionnelle")
     st.header("Bienvenue")
-    if st.button("Recherche par intitulé opératoire"):
+    if st.button("Recherche par intitulé opératoire", key="btn_operatoire"):
         st.session_state.page = "Recherche par intitulé opératoire"
         st.experimental_rerun()
-    if st.button("Recherche par catégorie"):
+    if st.button("Recherche par catégorie", key="btn_categorie"):
         st.session_state.page = "Recherche par catégorie"
         st.experimental_rerun()
 
 elif st.session_state.page == "Recherche par intitulé opératoire":
-    if st.button("Retour"):
+    if st.button("Retour", key="btn_retour_operatoire"):
         st.session_state.page = "Accueil"
         st.experimental_rerun()
 
@@ -57,14 +57,14 @@ elif st.session_state.page == "Recherche par intitulé opératoire":
             st.markdown("Le patient a-t-il une allergie aux antibiotiques ?")
             col1, col2 = st.columns(2)
             with col1:
-                if st.button("Non", key="non_allergie", help="Cliquer pour afficher les antibioprophylaxies sans allergie"):
+                if st.button("Non", key="non_allergie_operatoire", help="Cliquer pour afficher les antibioprophylaxies sans allergie"):
                     st.session_state.allergie_selected = True
                     st.session_state.chirurgie_specifique = chirurgie_specifique
                     st.session_state.allergie = False
                     st.experimental_rerun()
 
             with col2:
-                if st.button("Oui", key="oui_allergie", help="Cliquer pour afficher les antibioprophylaxies avec allergie"):
+                if st.button("Oui", key="oui_allergie_operatoire", help="Cliquer pour afficher les antibioprophylaxies avec allergie"):
                     st.session_state.allergie_selected = True
                     st.session_state.chirurgie_specifique = chirurgie_specifique
                     st.session_state.allergie = True
@@ -97,12 +97,12 @@ elif st.session_state.page == "Recherche par intitulé opératoire":
         else:
             st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
 
-        if st.button("Retour"):
+        if st.button("Retour", key="btn_retour_resultat_operatoire"):
             st.session_state.allergie_selected = False
             st.experimental_rerun()
 
 elif st.session_state.page == "Recherche par catégorie":
-    if st.button("Retour"):
+    if st.button("Retour", key="btn_retour_categorie"):
         st.session_state.page = "Accueil"
         st.experimental_rerun()
 
@@ -165,9 +165,9 @@ elif st.session_state.page == "Recherche par catégorie":
         else:
             st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
 
-        if st.button("Retour"):
+        if st.button("Retour", key="btn_retour_resultat_categorie"):
             st.session_state.allergie_selected = False
             st.experimental_rerun()
 
 # Ajouter la mention en bas de l'écran
-st.markdown("<div style='position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px 0; background-color: #f8f9fa; color: #333; font-size: 14px;'>Recommandations d'antibioprophylaxie de la SFAR, au jour du 13/06/2024</div>", unsafe_allow_html=True)
+st.markdown("<div style='position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px 0; background-color: #f8f9fa; color: #333;
