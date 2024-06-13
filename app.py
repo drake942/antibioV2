@@ -22,29 +22,54 @@ if "allergie_selected" not in st.session_state:
     st.session_state.allergie_selected = False
 if "chirurgie_specifique" not in st.session_state:
     st.session_state.chirurgie_specifique = ""
-if "previous_page" not in st.session_state:
-    st.session_state.previous_page = None
-
-def navigate(page):
-    st.session_state.previous_page = st.session_state.page
-    st.session_state.page = page
 
 if st.session_state.page == "Accueil":
     st.title("Antibioprophylaxie en chirurgie et médecine interventionnelle")
     st.header("Bienvenue")
     if st.button("Recherche par intitulé opératoire", key="btn_operatoire"):
-        navigate("Recherche par intitulé opératoire")
+        st.session_state.page = "Recherche par intitulé opératoire"
+        st.experimental_rerun()
     if st.button("Recherche par catégorie", key="btn_categorie"):
-        navigate("Recherche par catégorie")
+        st.session_state.page = "Recherche par catégorie"
+        st.experimental_rerun()
 
 elif st.session_state.page == "Recherche par intitulé opératoire":
-    if st.session_state.previous_page == "Accueil" and st.button("Retour", key="btn_retour_operatoire"):
-        navigate("Accueil")
-    elif st.session_state.previous_page == "Résultat" and st.button("Retour", key="btn_retour_operatoire_result"):
-        st.session_state.allergie_selected = False
-        navigate("Recherche par intitulé opératoire")
+    if st.session_state.allergie_selected:
+        chirurgie_specifique = st.session_state.chirurgie_specifique
+        allergie = st.session_state.allergie
+        result = data[data['Chirurgie Spécifique'] == chirurgie_specifique]
 
-    if not st.session_state.allergie_selected:
+        st.markdown(f"## {chirurgie_specifique}")
+
+        if not result.empty:
+            if not allergie:
+                antibioprophylaxie = result.iloc[0]['Antibioprophylaxie']
+                reinjection = result.iloc[0]['Réinjection']
+                note = result.iloc[0]['Note']
+                st.markdown("### Antibioprophylaxie")
+                st.write(antibioprophylaxie)
+                st.markdown("### Réinjection")
+                st.write(reinjection)
+                st.markdown("### Note")
+                st.write(note)
+            else:
+                antibioprophylaxie_allergie = result.iloc[0]['Allergie']
+                reinjection_allergie = result.iloc[0]['Réinjection allergie']
+                st.markdown("### Antibioprophylaxie allergie")
+                st.write(antibioprophylaxie_allergie)
+                st.markdown("### Réinjection allergie")
+                st.write(reinjection_allergie)
+        else:
+            st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
+
+        if st.button("Retour", key="btn_retour_allergie_operatoire"):
+            st.session_state.allergie_selected = False
+            st.experimental_rerun()
+    else:
+        if st.button("Retour", key="btn_retour_operatoire"):
+            st.session_state.page = "Accueil"
+            st.experimental_rerun()
+
         st.title("Antibioprophylaxie en chirurgie et médecine interventionnelle")
         # Recherche globale pour la chirurgie spécifique
         chirurgie_specifique_search = st.text_input("Recherche", key="global_search")
@@ -67,23 +92,52 @@ elif st.session_state.page == "Recherche par intitulé opératoire":
                     st.session_state.allergie_selected = True
                     st.session_state.chirurgie_specifique = chirurgie_specifique
                     st.session_state.allergie = False
-                    navigate("Résultat")
+                    st.experimental_rerun()
 
             with col2:
                 if st.button("Oui", key="oui_allergie_operatoire", help="Cliquer pour afficher les antibioprophylaxies avec allergie"):
                     st.session_state.allergie_selected = True
                     st.session_state.chirurgie_specifique = chirurgie_specifique
                     st.session_state.allergie = True
-                    navigate("Résultat")
+                    st.experimental_rerun()
 
 elif st.session_state.page == "Recherche par catégorie":
-    if st.session_state.previous_page == "Accueil" and st.button("Retour", key="btn_retour_categorie"):
-        navigate("Accueil")
-    elif st.session_state.previous_page == "Résultat" and st.button("Retour", key="btn_retour_categorie_result"):
-        st.session_state.allergie_selected = False
-        navigate("Recherche par catégorie")
+    if st.session_state.allergie_selected:
+        chirurgie_specifique = st.session_state.chirurgie_specifique
+        allergie = st.session_state.allergie
+        result = data[data['Chirurgie Spécifique'] == chirurgie_specifique]
 
-    if not st.session_state.allergie_selected:
+        st.markdown(f"## {chirurgie_specifique}")
+
+        if not result.empty:
+            if not allergie:
+                antibioprophylaxie = result.iloc[0]['Antibioprophylaxie']
+                reinjection = result.iloc[0]['Réinjection']
+                note = result.iloc[0]['Note']
+                st.markdown("### Antibioprophylaxie")
+                st.write(antibioprophylaxie)
+                st.markdown("### Réinjection")
+                st.write(reinjection)
+                st.markdown("### Note")
+                st.write(note)
+            else:
+                antibioprophylaxie_allergie = result.iloc[0]['Allergie']
+                reinjection_allergie = result.iloc[0]['Réinjection allergie']
+                st.markdown("### Antibioprophylaxie allergie")
+                st.write(antibioprophylaxie_allergie)
+                st.markdown("### Réinjection allergie")
+                st.write(reinjection_allergie)
+        else:
+            st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
+
+        if st.button("Retour", key="btn_retour_allergie_categorie"):
+            st.session_state.allergie_selected = False
+            st.experimental_rerun()
+    else:
+        if st.button("Retour", key="btn_retour_categorie"):
+            st.session_state.page = "Accueil"
+            st.experimental_rerun()
+
         st.title("Antibioprophylaxie en chirurgie et médecine interventionnelle")
         # Sélection du type de chirurgie avec menu déroulant
         type_chirurgie_selection = st.selectbox("Type de Chirurgie", data['Spécialité chirurgicale'].unique())
@@ -106,46 +160,14 @@ elif st.session_state.page == "Recherche par catégorie":
                         st.session_state.allergie_selected = True
                         st.session_state.chirurgie_specifique = chirurgie_specifique_selection
                         st.session_state.allergie = False
-                        navigate("Résultat")
+                        st.experimental_rerun()
 
                 with col2:
                     if st.button("Oui", key="oui_allergie_cat", help="Cliquer pour afficher les antibioprophylaxies avec allergie"):
                         st.session_state.allergie_selected = True
                         st.session_state.chirurgie_specifique = chirurgie_specifique_selection
                         st.session_state.allergie = True
-                        navigate("Résultat")
-
-elif st.session_state.page == "Résultat":
-    chirurgie_specifique = st.session_state.chirurgie_specifique
-    allergie = st.session_state.allergie
-    result = data[data['Chirurgie Spécifique'] == chirurgie_specifique]
-
-    st.markdown(f"## {chirurgie_specifique}")
-
-    if not result.empty:
-        if not allergie:
-            antibioprophylaxie = result.iloc[0]['Antibioprophylaxie']
-            reinjection = result.iloc[0]['Réinjection']
-            note = result.iloc[0]['Note']
-            st.markdown("### Antibioprophylaxie")
-            st.write(antibioprophylaxie)
-            st.markdown("### Réinjection")
-            st.write(reinjection)
-            st.markdown("### Note")
-            st.write(note)
-        else:
-            antibioprophylaxie_allergie = result.iloc[0]['Allergie']
-            reinjection_allergie = result.iloc[0]['Réinjection allergie']
-            st.markdown("### Antibioprophylaxie allergie")
-            st.write(antibioprophylaxie_allergie)
-            st.markdown("### Réinjection allergie")
-            st.write(reinjection_allergie)
-    else:
-        st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
-
-    if st.button("Retour", key="btn_retour_resultat"):
-        st.session_state.allergie_selected = False
-        navigate(st.session_state.previous_page)
+                        st.experimental_rerun()
 
 # Ajouter la mention en bas de l'écran
-st.markdown("<div style='position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px 0; background-color: #f8f9fa; color: #333; font-size: 14px;'>Recommandations d'antibioprophylaxie de la SFAR, au jour du 13/06/2024</div>", unsafe_allow_html=True)
+st.markdown("<div style='position: fixed; bottom: 0; width: 100%; text-align: left; padding: 10px 0; background-color: #f8f9fa; color: #333; font-size: 14px;'>Recommandations d'antibioprophylaxie de la SFAR, au jour du 13/06/2024</div>", unsafe_allow_html=True)
