@@ -107,25 +107,25 @@ elif st.session_state.page == "Recherche par catégorie":
         allergie = st.session_state.allergie
         result = data[data['Chirurgie Spécifique'] == chirurgie_specifique]
 
-        st.markdown(f"<h2 style='color: #1f77b4;'>{chirurgie_specifique}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='color: #ffffff;'>{chirurgie_specifique}</h2>", unsafe_allow_html=True)
 
         if not result.empty:
             if not allergie:
                 antibioprophylaxie = result.iloc[0]['Antibioprophylaxie']
                 reinjection = result.iloc[0]['Réinjection']
                 note = result.iloc[0]['Note']
-                st.markdown("<h3 style='color: #ff7f0e;'>Antibioprophylaxie</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 style='color: #ffffff;'>Antibioprophylaxie</h3>", unsafe_allow_html=True)
                 st.markdown(f"<div style='color: #2ca02c;'>{antibioprophylaxie}</div>", unsafe_allow_html=True)
-                st.markdown("<h3 style='color: #ff7f0e;'>Réinjection</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 style='color: #ffffff;'>Réinjection</h3>", unsafe_allow_html=True)
                 st.markdown(f"<div style='color: #2ca02c;'>{reinjection}</div>", unsafe_allow_html=True)
-                st.markdown("<h3 style='color: #ff7f0e;'>Note</h3>", unsafe_allow_html=True)
-                st.markdown(f"<div style='color: #2ca02c;'>{note}</div>", unsafe_allow_html=True)
+                st.markdown("<h3 style='color: #ffffff;'>Note</h3>", unsafe_allow_html=True)
+                st.markdown(f"<div style='color: #1f77b4;'>{note}</div>", unsafe_allow_html=True)
             else:
                 antibioprophylaxie_allergie = result.iloc[0]['Allergie']
                 reinjection_allergie = result.iloc[0]['Réinjection allergie']
-                st.markdown("<h3 style='color: #ff7f0e;'>Antibioprophylaxie allergie</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 style='color: #ffffff;'>Antibioprophylaxie allergie</h3>", unsafe_allow_html=True)
                 st.markdown(f"<div style='color: #d62728;'>{antibioprophylaxie_allergie}</div>", unsafe_allow_html=True)
-                st.markdown("<h3 style='color: #ff7f0e;'>Réinjection allergie</h3>", unsafe_allow_html=True)
+                st.markdown("<h3 style='color: #ffffff;'>Réinjection allergie</h3>", unsafe_allow_html=True)
                 st.markdown(f"<div style='color: #d62728;'>{reinjection_allergie}</div>", unsafe_allow_html=True)
         else:
             st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
