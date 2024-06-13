@@ -15,9 +15,6 @@ for col in required_columns:
         st.error(f"La colonne '{col}' est manquante dans le fichier Excel.")
         st.stop()
 
-# Nettoyer les données pour enlever les lignes avec des valeurs manquantes
-data.dropna(subset=required_columns, inplace=True)
-
 # Titre de l'application
 st.title("Antibioprophylaxie en chirurgie et médecine interventionnelle")
 
