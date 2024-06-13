@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Charger le nouveau fichier Excel
-file_path = "exemple_3_antibio.xlsx"  # Assurez-vous que le fichier est dans le même répertoire que le script
+file_path = "exemple_3_antibio.xlsx"
 data = pd.read_excel(file_path, engine='openpyxl')
 
 # Vérifier que les colonnes attendues sont présentes
@@ -15,8 +15,8 @@ for col in required_columns:
         st.error(f"La colonne '{col}' est manquante dans le fichier Excel.")
         st.stop()
 
-# Afficher les premières lignes du DataFrame pour vérifier le contenu
-st.write("Aperçu des données chargées :", data.head())
+# Nettoyer les données pour enlever les lignes avec des valeurs manquantes
+data.dropna(subset=required_columns, inplace=True)
 
 # Titre de l'application
 st.title("Antibioprophylaxie en chirurgie et médecine interventionnelle")
