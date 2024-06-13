@@ -61,7 +61,18 @@ elif st.session_state.page == "Recherche par intitulé opératoire":
                 st.markdown(f"<div style='color: #d62728;'>{reinjection_allergie}</div>", unsafe_allow_html=True)
         else:
             st.markdown("<span style='color: red; font-size: 20px;'>Aucune antibioprophylaxie recommandée trouvée pour cette combinaison.</span>", unsafe_allow_html=True)
+            
+            # Afficher la céfazoline avec le bouton IMC > 50
+                if "Céfazoline 2g IVL" in antibioprophylaxie:
+                    st.markdown("<h3 style='color: #ff7f0e;'>Antibioprophylaxie</h3>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='color: #2ca02c;'>{antibioprophylaxie}</div>", unsafe_allow_html=True)
+                    if st.button("IMC > 50", key="imc_cefazoline"):
+                        note += "\nDoubler la dose à 4g au total"
+                else:
+                    st.markdown("<h3 style='color: #ff7f0e;'>Antibioprophylaxie</h3>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='color: #2ca02c;'>{antibioprophylaxie}</div>", unsafe_allow_html=True)
 
+        
         if st.button("Retour", key="btn_retour_allergie_operatoire"):
             st.session_state.allergie_selected = False
             st.experimental_rerun()
