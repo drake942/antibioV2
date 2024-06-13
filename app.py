@@ -52,20 +52,7 @@ elif st.session_state.page == "Recherche par intitulé opératoire":
                 st.markdown(f"<div style='color: #2ca02c;'>{reinjection}</div>", unsafe_allow_html=True)
                 st.markdown("<h3 style='color: #ff7f0e;'>Note</h3>", unsafe_allow_html=True)
                 st.markdown(f"<div style='color: #2ca02c;'>{note}</div>", unsafe_allow_html=True)
-                # Afficher la céfazoline avec le bouton IMC > 50
-                if "Céfazoline 2g IVL" in antibioprophylaxie:
-                    st.markdown("<h3 style='color: #ff7f0e;'>Antibioprophylaxie</h3>", unsafe_allow_html=True)
-                    st.markdown(f"<div style='color: #2ca02c;'>{antibioprophylaxie}</div>", unsafe_allow_html=True)
-                    if st.button("IMC > 50", key="imc_cefazoline"):
-                        note += "\nDoubler la dose à 4g au total"
-                else:
-                    st.markdown("<h3 style='color: #ff7f0e;'>Antibioprophylaxie</h3>", unsafe_allow_html=True)
-                    st.markdown(f"<div style='color: #2ca02c;'>{antibioprophylaxie}</div>", unsafe_allow_html=True)
-
-                st.markdown("<h3 style='color: #ff7f0e;'>Réinjection</h3>", unsafe_allow_html=True)
-                st.markdown(f"<div style='color: #2ca02c;'>{reinjection}</div>", unsafe_allow_html=True)
-                st.markdown("<h3 style='color: #ff7f0e;'>Note</h3>", unsafe_allow_html=True)
-                st.markdown(f"<div style='color: #2ca02c;'>{note}</div>", unsafe_allow_html=True)
+             
             else:
                 antibioprophylaxie_allergie = result.iloc[0]['Allergie']
                 reinjection_allergie = result.iloc[0]['Réinjection allergie']
