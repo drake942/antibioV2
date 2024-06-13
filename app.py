@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Charger le nouveau fichier Excel
-file_path = "exemple_2_antibio.xlsx"  # Assurez-vous que le fichier est dans le même répertoire que le script
+file_path = "exemple_3_antibio.xlsx"  # Assurez-vous que le fichier est dans le même répertoire que le script
 data = pd.read_excel(file_path, engine='openpyxl')
 
 # Vérifier que les colonnes attendues sont présentes
